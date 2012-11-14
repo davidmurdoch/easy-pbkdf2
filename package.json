@@ -1,0 +1,28 @@
+{
+    "author": [
+		{
+			"name": "David Murdoch",
+			"email": "david+easy-pbkdf2@davidmurdoch.com",
+			"url": "http://davidmurdoch.com"
+		}
+	],
+	"name": "easy-pbkdf2",
+	"version": "0.0.1",
+	"description": "Easily generate and securily salted PBKDF2 hashes for password storage",
+	"keywords": [
+		"pbkdf2",
+		"passwords"
+	],
+    "main": "easy-pbkdf2.js",
+	"homepage": "https://github.com/davidmurdoch/easy-pbkdf2",
+	"bugs": {
+		"url" : "https://github.com/davidmurdoch/easy-pbkdf2/issues"
+	},
+    "dependencies": {
+        "lodash": "0.9.2"
+    },
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/davidmurdoch/easy-pbkdf2.git"
+	}
+}
