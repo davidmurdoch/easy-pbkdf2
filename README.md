@@ -4,7 +4,7 @@ Easy PBKDF2 makes it easier to create secure, individually salted, password hash
 
 This implementation is based on StackExchange's own Open Sourced PBKDF2 methods.
 
-# To Install:
+## Installation:
 
 via cmd line:
 
@@ -17,7 +17,7 @@ or in your `package.json`:
     }
    
 
-## To use:
+## Usage:
 
 ```javascript
     var easyPbkdf2 = require("easy-pbkdf2")();
@@ -90,24 +90,22 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`weakHash( value )`
 
-Cranks out a collision resistant hash, relatively quickly.
-Not suitable for passwords, or sensitive information.
-
-Synchronous only
+> Cranks out a collision resistant hash, relatively quickly.  
+> Not suitable for passwords, or sensitive information.  
+*Synchronous only*  
 
 #### Params:
- - **value**: String or Object. *Base64 encoded sha1 hash of `value*
+ - **value**: String or Object. Base64 encoded sha1 hash of `value`
 
 #### Returns:
  - A string; Base64 encoded sha1 hash of `value`
 
 ---
 
-###`random( bytes )`
+###`random( bytes, callback )`
 
-Universal random provider. Generates cryptographically strong pseudo-random data.
-
-Syncronous or Asyncronous
+> Universal random provider. Generates cryptographically strong pseudo-random data.  
+*Syncronous or Asyncronous*
 
 #### Params:
   - **bytes**: Number. The number of bytes to return.
@@ -120,13 +118,11 @@ Syncronous or Asyncronous
 
 ###`generateSalt( explicitIterations, callback )`
 
-Convenience wrapper around .random to grab a new salt value.
-Treat this value as opaque, as it captures iterations.
-
-Synchronous or Asynchronous
+> Convenience wrapper around .random to grab a new salt value.  
+> Treat this value as opaque, as it captures iterations.  
+*Synchronous or Asynchronous*
 
 #### Params:
- - **value**: String or Object. *Base64 encoded sha1 hash of `value*
  - **explicitIterations**: Number. An integer (optional)
  - **callback**: Function. (optional)
 
@@ -137,20 +133,17 @@ Synchronous or Asynchronous
 
 ###`secureHash()`
 
-Alias for [`hash`](#hash)
+> Alias for [`hash`](#hash)
 
 ---
 
 ###`hash( value, salt, callback )`
 
-Backs Secure hashes.
-
-Uses PBKDF2 internally, as implemented by the node's native crypto library.
-
-See http://en.wikipedia.org/wiki/PBKDF2
-and http://code.google.com/p/crypto-js/ for more information.
-
-Asynchronous only
+> Backs Secure hashes.  
+> Uses PBKDF2 internally, as implemented by the node's native crypto library.  
+> See http://en.wikipedia.org/wiki/PBKDF2  
+> and http://code.google.com/p/crypto-js/ for more information.  
+*Asynchronous only*
 
 #### Params:
  - **value**: String. MUST be a string, unless, of course, you want to explode.
