@@ -56,8 +56,6 @@ EasyPbkdf2.prototype = {
 	/**
 	 * Universal random provider. Generates cryptographically strong pseudo-random data.
 	 *
-	 * Just for paranoia's sake, use it for all random purposes.
-	 *
 	 * Synchronous or Asynchronous
 	 *
 	 * @param {Number} bytes
