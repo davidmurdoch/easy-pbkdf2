@@ -46,7 +46,7 @@ EasyPbkdf2.prototype = {
 	 * Asynchronous
 	 *
 	 * @param {String} value
-	 * @param {String} salt
+	 * @param {String} salt (optional)
 	 * @param {Function} callback
 	 */
 	"secureHash": function(){
@@ -143,20 +143,37 @@ EasyPbkdf2.prototype = {
 	 * See http://en.wikipedia.org/wiki/PBKDF2
 	 * and http://code.google.com/p/crypto-js/
 	 *
+     * If the salt param is ommitted, generates salt automatically
+     * 
 	 * Asynchronous
 	 *
 	 * @param {String} value MUST be a string, unless, of course, you want to explode.
-	 * @param {String} salt (should include iterations.)
-	 * @param {Function} callback fn( {String} A secure hash (base64 encoded) )
+	 * @param {String} salt (should include iterations). (optional)
+	 * @param {Function} callback fn( err, {String} A secure hash (base64 encoded), salt w/ iterations )
 	 */
 	"hash": function( value, salt, callback ) {
+        // if salt was not supplied, generate it now.
+        if ( _.isFunction( salt ) || salt == null ) {
+            callback = callback || salt;
+            salt = this.generateSalt();
+        }
+        if ( !_.isFunction( callback ) ) {
+            throw new Error("callback is required (as Function)");
+        }
+        if ( !value || typeof value !== "string" ) {
+            callback(new Error("value is required (as String)"));
+            return;
+        }
 		var keySize = 256,
-			i = salt.indexOf("."),
+			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
 
 		crypto.pbkdf2( value, salt.substring( i + 1 ), iterations, keySize, function( err, derivedKey ) {
-			var base64 = binaryToBase64( derivedKey );
-			callback( base64 );
+            var base64;
+            if ( !err ){
+			    base64 = binaryToBase64( derivedKey );
+            }
+			callback( err, base64, salt );
 		});
 	}
 };

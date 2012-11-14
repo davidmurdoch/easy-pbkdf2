@@ -26,20 +26,37 @@ easyPbkdf2.generateSalt( function( salt ){
     assert.strictEqual(easyPbkdf2.weakHash(["value"]), easyPbkdf2.weakHash(["value"]), "Generated weakHashes created with same seed value are identical");
 
     var password = "password";
-    easyPbkdf2.secureHash( password, salt, function( hashed ) {
+    easyPbkdf2.secureHash( password, function( err, hashed, salt ) {
         assert.ok( hashed && hashed.length > 0, "Hash created");
+        assert.ok( salt && salt.length > 0, "Salt created");
 
-        easyPbkdf2.secureHash( password, salt, function( secondHashed ){
+        easyPbkdf2.secureHash( password, salt, function( err, secondHashed, _salt ){
             assert.strictEqual( secondHashed, hashed, "Hashing with identical salt and password works as expected" );
-
-            var randomBytes = easyPbkdf2.random( 10 );
-            assert.equal( randomBytes.length, 10, "Sync random returns correct randomBytes" );
-
-            easyPbkdf2.random( 10, function( randomBytes ){
-                assert.equal( randomBytes.length, 10, "Async random returns correct randomBytes" );
-
-                console.log("done. all tests passes");
+            assert.strictEqual( _salt, salt, "Salt did not change");
+            
+            easyPbkdf2.secureHash( [], function(err){
+                assert.ok(err instanceof Error, "invalid value emits error");
+                
+                assert.throws( function(){
+                    easyPbkdf2.secureHash( "pass", "salt" );
+                }, Error, "Missing callback throws");
+                
+                assert.throws( function(){
+                    easyPbkdf2.secureHash( "pass", "salt", {} );
+                }, Error, "invliad callback throws");
+                
+                assert.ok(err instanceof Error, "invalid value emits error");
+            
+                var randomBytes = easyPbkdf2.random( 10 );
+                assert.equal( randomBytes.length, 10, "Sync random returns correct randomBytes" );
+    
+                easyPbkdf2.random( 10, function( randomBytes ){
+                    assert.equal( randomBytes.length, 10, "Async random returns correct randomBytes" );
+    
+                    console.log("done. all tests passes");
+                }); 
             });
+
         });
     });
 

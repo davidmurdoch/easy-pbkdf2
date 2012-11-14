@@ -19,11 +19,10 @@ or in your `package.json`:
 
 ## Usage:
 
-```javascript
     var easyPbkdf2 = require("easy-pbkdf2")();
     var salt = easyPbkdf2.generateSalt();
     var password = "RandomDigits";
-    easyPbkdf2.secureHash( password, salt, function( passwordHash ) {
+    easyPbkdf2.secureHash( password, salt, function( err, passwordHash, originalSalt ) {
         // use your own db's methods to save the hashed password AND salt.
         currentUser.update({
             // The Base64 encoded hash, 344 characters long
@@ -32,7 +31,7 @@ or in your `package.json`:
             // 32 produces a value that is:
             // (SALT_SIZE.toString(16).length) + 1 + base64EncodedSalt.length)
             // characters long (42 characters).
-            "salt": salt
+            "salt": originalSalt // === salt
         });
     });
 
@@ -40,13 +39,18 @@ or in your `package.json`:
 
     // sometime later:
     function authenticate( user, userEnteredPassword, callback ){
-        easyPbkdf2.secureHash( userEnteredPassword, user.salt, function( passwordHash ) {
+        easyPbkdf2.secureHash( userEnteredPassword, user.salt, function( err, passwordHash, salt ) {
             // make sure the user-entered password is equal to the previously
             // created hash when hashed with the same salt.
             callback( passwordHash === user.password_hash );
         });
     }
-```
+
+You can also have easyPbkdf2 generate the salt for you by omitting the `salt` parameter:
+
+    easyPbkdf2.secureHash( password, function( err, passwordHash, newSalt ) {
+        // save newSalt somewhere!
+    });
 
 To create a new instance of `EasyPbkdf2`:
 
@@ -131,9 +135,9 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ---
 
-###`secureHash()`
+###`secureHash( value, salt, callback )`
 
-> Alias for [`hash`](#hash)
+> Alias for [`hash`](#hash).
 
 ---
 
@@ -146,9 +150,9 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 *Asynchronous only*
 
 #### Params:
- - **value**: String. MUST be a string, unless, of course, you want to explode.
- - **salt**: String. salt (should include iterations.)
- - **callback**: Function. fn( {String} A secure hash (base64 encoded) )
+ - **value**: String. The value/password you want to hash.
+ - **salt**: String. salt (should include iterations). Automatically created if omitted. (optional)
+ - **callback**: Function. fn( {Error} err, {String} A secure hash (base64 encoded), {String} the original or newly created salt ).
 
 ## Issues
 
