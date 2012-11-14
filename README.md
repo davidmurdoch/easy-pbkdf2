@@ -8,14 +8,17 @@ This implementation is based on StackExchange's own Open Sourced PBKDF2 methods.
 
 via cmd line:
 
-    npm install easy-pbkdf2
+```bash
+$ npm install easy-pbkdf2
+```
 
 or in your `package.json`:
 
-    "dependencies": {
-        "easy-pbkdf2": "0.0.2"
-    }
-   
+```json
+"dependencies": {
+    "easy-pbkdf2": "0.0.2"
+}
+```
 
 ## Usage:
 
@@ -73,7 +76,7 @@ of which all will return an `EasyPbkdf2` instance with `options` set.
 
 ## Options
 
-```
+```js
  var options = {
     // default DEFAULT_HASH_ITERATIONS is 512
     "DEFAULT_HASH_ITERATIONS": 256,
@@ -87,7 +90,6 @@ console.log(easyPbkdf2.SALT_SIZE); // 16
 
 // options are applied to each instance individually.
 console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
-
 ```
 
 ## Methods
