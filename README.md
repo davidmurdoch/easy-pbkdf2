@@ -4,6 +4,19 @@ Easy PBKDF2 makes it easier to create secure, individually salted, password hash
 
 This implementation is based on StackExchange's own Open Sourced PBKDF2 methods.
 
+# To Install:
+
+via cmd line:
+
+    npm install easy-pbkdf2
+
+or in your `package.json`:
+
+    "dependencies": {
+        "easy-pbkdf2": "0.0.1"
+    }
+   
+
 ## To use:
 
 ```javascript
@@ -147,4 +160,5 @@ Asynchronous only
 ## Issues
 
 Please file them here: [https://github.com/davidmurdoch/easy-pbkdf2/issues](https://github.com/davidmurdoch/easy-pbkdf2/issues).
-Pull requests are very welcome.
+
+And remember: pull requests are very welcome. :-)
