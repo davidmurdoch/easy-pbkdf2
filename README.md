@@ -58,10 +58,10 @@ easyPbkdf2.secureHash( password, function( err, passwordHash, newSalt ) {
 });
 ```
 
-To create a new instance of `EasyPbkdf2`:
+To create a new instance of `EasyPbkdf2`: 
 
 ```js
-    var easyPbkdf2 = require("easy-pbkdf2")();`
+    var easyPbkdf2 = require("easy-pbkdf2")();
 ```
 
 You can also use the following methods of instantiation:
