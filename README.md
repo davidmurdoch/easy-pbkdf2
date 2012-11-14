@@ -137,7 +137,7 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`secureHash( value, salt, callback )`
 
-> Alias for [`hash`](#hash).
+> Alias for [`hash`](#hash-value-salt-callback-).
 
 ---
 
