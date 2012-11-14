@@ -13,7 +13,7 @@ via cmd line:
 or in your `package.json`:
 
     "dependencies": {
-        "easy-pbkdf2": "0.0.1"
+        "easy-pbkdf2": "0.0.2"
     }
    
 
