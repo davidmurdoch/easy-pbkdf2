@@ -21,47 +21,52 @@ or in your `package.json`:
 ```
 
 ## Usage:
-
-    var easyPbkdf2 = require("easy-pbkdf2")();
-    var salt = easyPbkdf2.generateSalt();
-    var password = "RandomDigits";
-    easyPbkdf2.secureHash( password, salt, function( err, passwordHash, originalSalt ) {
-        // use your own db's methods to save the hashed password AND salt.
-        currentUser.update({
-            // The Base64 encoded hash, 344 characters long
-            "password_hash": passwordHash,
-            // Salt length varies based on SALT_SIZE. The default SALT_SIZE of
-            // 32 produces a value that is:
-            // (SALT_SIZE.toString(16).length) + 1 + base64EncodedSalt.length)
-            // characters long (42 characters).
-            "salt": originalSalt // === salt
-        });
+```js
+var easyPbkdf2 = require("easy-pbkdf2")();
+var salt = easyPbkdf2.generateSalt();
+var password = "RandomDigits";
+easyPbkdf2.secureHash( password, salt, function( err, passwordHash, originalSalt ) {
+    // use your own db's methods to save the hashed password AND salt.
+    currentUser.update({
+        // The Base64 encoded hash, 344 characters long
+        "password_hash": passwordHash,
+        // Salt length varies based on SALT_SIZE. The default SALT_SIZE of
+        // 32 produces a value that is:
+        // (SALT_SIZE.toString(16).length) + 1 + base64EncodedSalt.length)
+        // characters long (42 characters).
+        "salt": originalSalt // === salt
     });
+});
 
-    // ...
+// ...
 
-    // sometime later:
-    function authenticate( user, userEnteredPassword, callback ){
-        easyPbkdf2.secureHash( userEnteredPassword, user.salt, function( err, passwordHash, salt ) {
-            // make sure the user-entered password is equal to the previously
-            // created hash when hashed with the same salt.
-            callback( passwordHash === user.password_hash );
-        });
-    }
+// sometime later:
+function authenticate( user, userEnteredPassword, callback ){
+    easyPbkdf2.secureHash( userEnteredPassword, user.salt, function( err, passwordHash, salt ) {
+        // make sure the user-entered password is equal to the previously
+        // created hash when hashed with the same salt.
+        callback( passwordHash === user.password_hash );
+    });
+}
+```
 
 You can also have easyPbkdf2 generate the salt for you by omitting the `salt` parameter:
 
-    easyPbkdf2.secureHash( password, function( err, passwordHash, newSalt ) {
-        // save newSalt somewhere!
-    });
+```js
+easyPbkdf2.secureHash( password, function( err, passwordHash, newSalt ) {
+    // save newSalt somewhere!
+});
+```
 
 To create a new instance of `EasyPbkdf2`:
 
+```js
     var easyPbkdf2 = require("easy-pbkdf2")();`
+```
 
 You can also use the following methods of instantiation:
 
-```
+```js
 // the EasyPbkdf2 constructor
 var EasyPbkdf2 = require("easy-pbkdf2"),
     easyPbkdf2;
