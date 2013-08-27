@@ -58,7 +58,7 @@ easyPbkdf2.secureHash( password, function( err, passwordHash, newSalt ) {
 });
 ```
 
-To create a new instance of `EasyPbkdf2`: 
+To create a new instance of `EasyPbkdf2`:
 
 ```js
     var easyPbkdf2 = require("easy-pbkdf2")();
@@ -87,14 +87,14 @@ of which all will return an `EasyPbkdf2` instance with `options` set.
     "DEFAULT_HASH_ITERATIONS": 256,
     // default SALT_SIZE is 32
     "SALT_SIZE": 16,
-    // default KEY_SIZE is 256
-    "KEY_SIZE": 128
+    // default KEY_LENGTH is 256
+    "KEY_LENGTH": 128
 };
 
 var easyPbkdf2 = new EasyPbkdf2(options);
 console.log(easyPbkdf2.DEFAULT_HASH_ITERATIONS) // 256
 console.log(easyPbkdf2.SALT_SIZE); // 16
-console.log(easyPbkdf2.KEY_SIZE); // 128
+console.log(easyPbkdf2.KEY_LENGTH); // 128
 
 // options are applied to each instance individually.
 console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
@@ -104,9 +104,9 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`weakHash( value )`
 
-> Cranks out a collision resistant hash, relatively quickly.  
-> Not suitable for passwords, or sensitive information.  
-*Synchronous only*  
+> Cranks out a collision resistant hash, relatively quickly.
+> Not suitable for passwords, or sensitive information.
+*Synchronous only*
 
 #### Params:
  - **value**: String or Object. Base64 encoded SHA-1 hash of `value`
@@ -118,7 +118,7 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`random( bytes, callback )`
 
-> Universal random provider. Generates cryptographically strong pseudo-random data.  
+> Universal random provider. Generates cryptographically strong pseudo-random data.
 *Syncronous or Asyncronous*
 
 #### Params:
@@ -132,8 +132,8 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`generateSalt( explicitIterations, callback )`
 
-> Convenience wrapper around `.random` to grab a new salt value.  
-> Treat this value as opaque, as it captures iterations.  
+> Convenience wrapper around `.random` to grab a new salt value.
+> Treat this value as opaque, as it captures iterations.
 *Synchronous or Asynchronous*
 
 #### Params:
@@ -153,10 +153,10 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`hash( value, salt, callback )`
 
-> Backs Secure hashes.  
-> Uses PBKDF2 internally, as implemented by node's native crypto library.  
-> See http://en.wikipedia.org/wiki/PBKDF2  
-> and http://code.google.com/p/crypto-js/ for more information.  
+> Backs Secure hashes.
+> Uses PBKDF2 internally, as implemented by node's native crypto library.
+> See http://en.wikipedia.org/wiki/PBKDF2
+> and http://code.google.com/p/crypto-js/ for more information.
 *Asynchronous only*
 
 #### Params:

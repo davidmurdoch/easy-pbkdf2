@@ -24,7 +24,7 @@ EasyPbkdf2.prototype = {
 	/**
 	 * @default The length of the key to derive when hashing
 	 */
-	"KEY_SIZE": 256,
+	"KEY_LENGTH": 256,
 
 	/**
 	 * Cranks out a collision resistant hash, relatively quickly.
@@ -150,7 +150,7 @@ EasyPbkdf2.prototype = {
 	 * and http://code.google.com/p/crypto-js/
 	 *
 	 * If the salt param is ommitted, generates salt automatically
-	 * 
+	 *
 	 * Asynchronous
 	 *
 	 * @param {String} value MUST be a string, unless, of course, you want to explode.
@@ -170,7 +170,7 @@ EasyPbkdf2.prototype = {
 			callback(new Error("value is required (as String)"));
 			return;
 		}
-		var keySize = this.KEY_SIZE,
+		var keySize = this.KEY_LENGTH,
 			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
 

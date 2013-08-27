@@ -1,11 +1,11 @@
 // very naive testing
 
 var assert = require("assert"),
-    easyPbkdf2 = require("./easy-pbkdf2")( {"DEFAULT_HASH_ITERATIONS": 256, "SALT_SIZE": 128, "KEY_SIZE": 1024} );
+    easyPbkdf2 = require("./easy-pbkdf2")( {"DEFAULT_HASH_ITERATIONS": 256, "SALT_SIZE": 128, "KEY_LENGTH": 1024} );
 
 assert.strictEqual( easyPbkdf2.DEFAULT_HASH_ITERATIONS, 256, "DEFAULT_HASH_ITERATIONS set correctly");
 assert.strictEqual( easyPbkdf2.SALT_SIZE, 128, "SALT_SIZE set correctly");
-assert.strictEqual( easyPbkdf2.KEY_SIZE, 1024, "KEY_SIZE set correctly");
+assert.strictEqual( easyPbkdf2.KEY_LENGTH, 1024, "KEY_LENGTH set correctly");
 
 var salt = easyPbkdf2.generateSalt();
 assert.ok( salt && salt.length > 0, "Sync salt created");
@@ -34,28 +34,28 @@ easyPbkdf2.generateSalt( function( salt ){
         easyPbkdf2.secureHash( password, salt, function( err, secondHashed, _salt ){
             assert.strictEqual( secondHashed, hashed, "Hashing with identical salt and password works as expected" );
             assert.strictEqual( _salt, salt, "Salt did not change");
-            
+
             easyPbkdf2.secureHash( [], function(err){
                 assert.ok(err instanceof Error, "invalid value emits error");
-                
+
                 assert.throws( function(){
                     easyPbkdf2.secureHash( "pass", "salt" );
                 }, Error, "Missing callback throws");
-                
+
                 assert.throws( function(){
                     easyPbkdf2.secureHash( "pass", "salt", {} );
                 }, Error, "invliad callback throws");
-                
+
                 assert.ok(err instanceof Error, "invalid value emits error");
-            
+
                 var randomBytes = easyPbkdf2.random( 10 );
                 assert.equal( randomBytes.length, 10, "Sync random returns correct randomBytes" );
-    
+
                 easyPbkdf2.random( 10, function( randomBytes ){
                     assert.equal( randomBytes.length, 10, "Async random returns correct randomBytes" );
-    
+
                     console.log("done. all tests passes");
-                }); 
+                });
             });
 
         });
