@@ -1,17 +1,18 @@
 var crypto = require("crypto"),
-    _ = require("lodash");
+	_ = require("lodash");
 
 var EasyPbkdf2 = module.exports = function( options ) {
-    if( !( this instanceof EasyPbkdf2 ) ){
-        return new EasyPbkdf2( options );
-    }
+	if( !( this instanceof EasyPbkdf2 ) ){
+		return new EasyPbkdf2( options );
+	}
 
-    if ( _.isPlainObject( options ) ) {
-        _.each( options, function( value, key ){
-            this[ key ] = value;
-        }, this);
-    }
-}
+	if ( _.isPlainObject( options ) ) {
+		_.each( options, function( value, key ){
+			this[ key ] = value;
+		}, this);
+	}
+};
+
 EasyPbkdf2.prototype = {
 	"DEFAULT_HASH_ITERATIONS": 5024,
 
@@ -28,14 +29,14 @@ EasyPbkdf2.prototype = {
 	 * Synchronous
 	 *
 	 * @param {String|Object} value The data to hash. The value is converted to
-     *     a string via JSON.stringify(). Do NOT pass a function.
+	 * 	a string via JSON.stringify(). Do NOT pass a function.
 	 * @returns {String} Base64 encoded sha1 hash of `value`
 	 */
 	"weakHash": function( value ) {
 		var hasher = crypto.createHash("sha1"),
-            bytes = value != null ? new Buffer( JSON.stringify( value ), "utf8" ) : new Buffer(0);
+			bytes = value != null ? new Buffer( JSON.stringify( value ), "utf8" ) : new Buffer(0);
 
-        hasher.update( bytes, "binary" );
+		hasher.update( bytes, "binary" );
 
 		return hasher.digest("base64");
 	},
@@ -96,18 +97,18 @@ EasyPbkdf2.prototype = {
 		var defaultHashIterations = this.DEFAULT_HASH_ITERATIONS,
 			saltSize = this.SALT_SIZE;
 
-        if ( !callback && _.isFunction( explicitIterations ) ) {
-            callback = explicitIterations;
-            explicitIterations = null;
-        }
+		if ( !callback && _.isFunction( explicitIterations ) ) {
+			callback = explicitIterations;
+			explicitIterations = null;
+		}
 
 		if ( explicitIterations != null ) {
 			// make sure explicitIterations is an integer
-            var explicitIterationsInt = parseInt( explicitIterations, 10 );
+			var explicitIterationsInt = parseInt( explicitIterations, 10 );
 			if ( explicitIterationsInt != explicitIterations || isNaN( explicitIterationsInt ) ) {
 				throw new Error("explicitIterations must be an integer");
 			}
-            explicitIterations = explicitIterationsInt;
+			explicitIterations = explicitIterationsInt;
 			// and that it is not smaller than our default hash iterations
 			if ( explicitIterations < defaultHashIterations ) {
 				throw new Error( "explicitIterations cannot be less than " + defaultHashIterations );
@@ -143,8 +144,8 @@ EasyPbkdf2.prototype = {
 	 * See http://en.wikipedia.org/wiki/PBKDF2
 	 * and http://code.google.com/p/crypto-js/
 	 *
-     * If the salt param is ommitted, generates salt automatically
-     * 
+	 * If the salt param is ommitted, generates salt automatically
+	 * 
 	 * Asynchronous
 	 *
 	 * @param {String} value MUST be a string, unless, of course, you want to explode.
@@ -152,27 +153,27 @@ EasyPbkdf2.prototype = {
 	 * @param {Function} callback fn( err, {String} A secure hash (base64 encoded), salt w/ iterations )
 	 */
 	"hash": function( value, salt, callback ) {
-        // if salt was not supplied, generate it now.
-        if ( _.isFunction( salt ) || salt == null ) {
-            callback = callback || salt;
-            salt = this.generateSalt();
-        }
-        if ( !_.isFunction( callback ) ) {
-            throw new Error("callback is required (as Function)");
-        }
-        if ( !value || typeof value !== "string" ) {
-            callback(new Error("value is required (as String)"));
-            return;
-        }
+		// if salt was not supplied, generate it now.
+		if ( _.isFunction( salt ) || salt == null ) {
+			callback = callback || salt;
+			salt = this.generateSalt();
+		}
+		if ( !_.isFunction( callback ) ) {
+			throw new Error("callback is required (as Function)");
+		}
+		if ( !value || typeof value !== "string" ) {
+			callback(new Error("value is required (as String)"));
+			return;
+		}
 		var keySize = 256,
 			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
 
 		crypto.pbkdf2( value, salt.substring( i + 1 ), iterations, keySize, function( err, derivedKey ) {
-            var base64;
-            if ( !err ){
-			    base64 = binaryToBase64( derivedKey );
-            }
+			var base64;
+			if ( !err ){
+				base64 = binaryToBase64( derivedKey );
+			}
 			callback( err, base64, salt );
 		});
 	}
@@ -182,5 +183,5 @@ EasyPbkdf2.prototype = {
 EasyPbkdf2.EasyPbkdf2 = EasyPbkdf2;
 
 function binaryToBase64( binary ){
-    return new Buffer( binary, "binary" ).toString("base64");
+	return new Buffer( binary, "binary" ).toString("base64");
 }
