@@ -2,14 +2,14 @@
 
 Easy PBKDF2 makes it easier to create secure, individually salted, password hashes using PBKDF2.
 
-This implementation is based on StackExchange's own Open Sourced PBKDF2 methods.
+This implementation is based on [[StackExchange's own Open Sourced PBKDF2 methods]](https://code.google.com/p/stackid/source/browse/OpenIdProvider/Current.cs#1257).
 
 ## Installation:
 
 via cmd line:
 
 ```bash
-$ npm install easy-pbkdf2
+$ npm install easy-pbkdf2 --save
 ```
 
 or in your `package.json`:
@@ -50,7 +50,7 @@ function authenticate( user, userEnteredPassword, callback ){
 }
 ```
 
-You can also have easyPbkdf2 generate the salt for you by omitting the `salt` parameter:
+You can also use EasyPbkdf2 to generate the salt for you by omitting the `salt` parameter:
 
 ```js
 easyPbkdf2.secureHash( password, function( err, passwordHash, newSalt ) {
@@ -109,10 +109,10 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 *Synchronous only*  
 
 #### Params:
- - **value**: String or Object. Base64 encoded sha1 hash of `value`
+ - **value**: String or Object. Base64 encoded SHA-1 hash of `value`
 
 #### Returns:
- - A string; Base64 encoded sha1 hash of `value`
+ - A string; Base64 encoded SHA-1 hash of `value`
 
 ---
 
@@ -132,7 +132,7 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 ###`generateSalt( explicitIterations, callback )`
 
-> Convenience wrapper around .random to grab a new salt value.  
+> Convenience wrapper around `.random` to grab a new salt value.  
 > Treat this value as opaque, as it captures iterations.  
 *Synchronous or Asynchronous*
 
@@ -154,7 +154,7 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 ###`hash( value, salt, callback )`
 
 > Backs Secure hashes.  
-> Uses PBKDF2 internally, as implemented by the node's native crypto library.  
+> Uses PBKDF2 internally, as implemented by node's native crypto library.  
 > See http://en.wikipedia.org/wiki/PBKDF2  
 > and http://code.google.com/p/crypto-js/ for more information.  
 *Asynchronous only*
