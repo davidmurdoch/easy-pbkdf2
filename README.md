@@ -86,12 +86,15 @@ of which all will return an `EasyPbkdf2` instance with `options` set.
     // default DEFAULT_HASH_ITERATIONS is 512
     "DEFAULT_HASH_ITERATIONS": 256,
     // default SALT_SIZE is 32
-    "SALT_SIZE": 16
+    "SALT_SIZE": 16,
+    // default KEY_SIZE is 256
+    "KEY_SIZE": 128
 };
 
 var easyPbkdf2 = new EasyPbkdf2(options);
 console.log(easyPbkdf2.DEFAULT_HASH_ITERATIONS) // 256
 console.log(easyPbkdf2.SALT_SIZE); // 16
+console.log(easyPbkdf2.KEY_SIZE); // 128
 
 // options are applied to each instance individually.
 console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
