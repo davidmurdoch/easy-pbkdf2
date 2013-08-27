@@ -1,10 +1,11 @@
 // very naive testing
 
 var assert = require("assert"),
-    easyPbkdf2 = require("./easy-pbkdf2")( {"DEFAULT_HASH_ITERATIONS": 256, "SALT_SIZE": 128} );
+    easyPbkdf2 = require("./easy-pbkdf2")( {"DEFAULT_HASH_ITERATIONS": 256, "SALT_SIZE": 128, "KEY_SIZE": 1024} );
 
 assert.strictEqual( easyPbkdf2.DEFAULT_HASH_ITERATIONS, 256, "DEFAULT_HASH_ITERATIONS set correctly");
 assert.strictEqual( easyPbkdf2.SALT_SIZE, 128, "SALT_SIZE set correctly");
+assert.strictEqual( easyPbkdf2.KEY_SIZE, 1024, "KEY_SIZE set correctly");
 
 var salt = easyPbkdf2.generateSalt();
 assert.ok( salt && salt.length > 0, "Sync salt created");
