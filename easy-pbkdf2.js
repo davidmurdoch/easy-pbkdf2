@@ -22,6 +22,11 @@ EasyPbkdf2.prototype = {
 	"SALT_SIZE": 256/8,
 
 	/**
+	 * @default The length of the key to derive when hashing
+	 */
+	"KEY_SIZE": 256,
+
+	/**
 	 * Cranks out a collision resistant hash, relatively quickly.
 	 *
 	 * Not suitable for passwords, or sensitive information.
@@ -165,7 +170,7 @@ EasyPbkdf2.prototype = {
 			callback(new Error("value is required (as String)"));
 			return;
 		}
-		var keySize = 256,
+		var keySize = this.KEY_SIZE,
 			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
 
