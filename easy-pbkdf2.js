@@ -14,10 +14,13 @@ var EasyPbkdf2 = module.exports = function( options ) {
 };
 
 EasyPbkdf2.prototype = {
+	/**
+	 * @constant The default number of iterations used by the hash method.
+	 */
 	"DEFAULT_HASH_ITERATIONS": 5024,
 
 	/**
-	 * @constant Salt sizes throughout the system
+	 * @default Salt sizes throughout the system
 	 */
 	"SALT_SIZE": 256/8,
 
