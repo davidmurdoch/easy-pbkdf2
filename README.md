@@ -2,7 +2,7 @@
 
 Easy PBKDF2 makes it easier to create secure, individually salted, password hashes using PBKDF2.
 
-This implementation is based on [[StackExchange's own Open Sourced PBKDF2 methods]](https://code.google.com/p/stackid/source/browse/OpenIdProvider/Current.cs#1257).
+This implementation is based on [StackExchange's own Open Sourced PBKDF2 methods](https://code.google.com/p/stackid/source/browse/OpenIdProvider/Current.cs#1257).
 
 ## Installation:
 
