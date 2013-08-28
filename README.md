@@ -41,11 +41,11 @@ easyPbkdf2.secureHash( password, salt, function( err, passwordHash, originalSalt
 // ...
 
 // sometime later:
-function authenticate( user, userEnteredPassword, callback ){
-    easyPbkdf2.secureHash( userEnteredPassword, user.salt, function( err, passwordHash, salt ) {
-        // make sure the user-entered password is equal to the previously
-        // created hash when hashed with the same salt.
-        callback( passwordHash === user.password_hash );
+function authenticate( user, userEnteredPassword, callback ) {
+	// make sure the user-entered password is equal to the previously
+    // created hash when hashed with the same salt.
+    easyPbkdf2.verify( user.salt, user.password_hash, userEnteredPassword, function( err, valid ) {
+        callback( valid );
     });
 }
 ```
@@ -160,9 +160,22 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 *Asynchronous only*
 
 #### Params:
- - **value**: String. The value/password you want to hash.
+ - **value**: String. The plaintext value/password you want to hash.
  - **salt**: String. salt (should include iterations). Automatically created if omitted. (optional)
  - **callback**: Function. fn( {Error} err, {String} A secure hash (base64 encoded), {String} the original or newly created salt ).
+
+###`verify( salt, priorHash, value, callback )`
+
+> Verifies that the supplied plaintext `value` hashes to the same base64 encoded string as the `priorHash`, when hashed with
+> the same salt.
+> This method uses a constant-time string equality check to ensure information is not leaked via timing-attack.
+*Asynchronous only*
+
+#### Params:
+ - **salt**: String. salt (should include iterations).
+ - **priorHash**: String. A secure hash (base64 encoded).
+ - **value**: String. The plaintext value/password you want to verify.
+ - **callback**: Function. fn( {Error} err, {Boolean} True if the `value` matches the `priorHash`, false if not. ).
 
 ## Issues
 

@@ -28,8 +28,17 @@ easyPbkdf2.generateSalt( function( salt ){
 
     var password = "password";
     easyPbkdf2.secureHash( password, function( err, hashed, salt ) {
+
         assert.ok( hashed && hashed.length > 0, "Hash created");
         assert.ok( salt && salt.length > 0, "Salt created");
+
+		easyPbkdf2.verify( salt, hashed, password, function( err, valid ) {
+			assert.strictEqual( valid, true, "verify returns correct result for matching data" );
+		});
+
+		easyPbkdf2.verify( salt, hashed, "not the password", function( err, valid ) {
+			assert.strictEqual( valid, false, "Verify returns correct result for mismatched data" );
+		});
 
         easyPbkdf2.secureHash( password, salt, function( err, secondHashed, _salt ){
             assert.strictEqual( secondHashed, hashed, "Hashing with identical salt and password works as expected" );
