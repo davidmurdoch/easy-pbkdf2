@@ -7,7 +7,7 @@
 		}
 	],
 	"name": "easy-pbkdf2",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"description": "Easily generate securily salted PBKDF2 hashes for password storage",
 	"keywords": [
 		"pbkdf2",
