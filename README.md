@@ -23,16 +23,16 @@ or in your `package.json`:
 ## Usage:
 ```js
 var easyPbkdf2 = require("easy-pbkdf2")();
-var salt = easyPbkdf2.generateSalt();
+var salt = easyPbkdf2.generateSalt(); // `salt` should be treated as opaque, as it captures iterations
 var password = "RandomDigits";
 easyPbkdf2.secureHash( password, salt, function( err, passwordHash, originalSalt ) {
     // use your own db's methods to save the hashed password AND salt.
     currentUser.update({
         // The Base64 encoded hash, 344 characters long
         "password_hash": passwordHash,
-        // Salt length varies based on SALT_SIZE. The default SALT_SIZE of
+        // Salt length varies based on SALT_SIZE and iterations. The default SALT_SIZE of
         // 32 produces a value that is:
-        // (SALT_SIZE.toString(16).length) + 1 + base64EncodedSalt.length)
+        // (hashIterations.toString(16).length) + 1 + base64EncodedSalt.length)
         // characters long (42 characters).
         "salt": originalSalt // === salt
     });
@@ -134,6 +134,10 @@ console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
 
 > Convenience wrapper around `.random` to grab a new salt value.
 > Treat this value as opaque, as it captures iterations.
+>
+> Salt length varies based on SALT_SIZE and iterations. The default SALT_SIZE of 32 produces a value that is:
+>   (hashIterations.toString(16).length) + 1 + base64EncodedSalt.length) characters long (42 characters).
+>
 *Synchronous or Asynchronous*
 
 #### Params:
