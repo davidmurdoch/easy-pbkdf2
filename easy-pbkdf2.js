@@ -17,7 +17,7 @@ EasyPbkdf2.prototype = {
 	/**
 	 * @constant The default number of iterations used by the hash method.
 	 */
-	"DEFAULT_HASH_ITERATIONS": 5024,
+	"DEFAULT_HASH_ITERATIONS": 512,
 
 	/**
 	 * @default Salt sizes throughout the system
