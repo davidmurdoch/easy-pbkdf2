@@ -200,9 +200,15 @@ EasyPbkdf2.prototype = {
 	 */
 	"verify": function( salt, priorHash, value, callback ) {
 		// calculate the original key length by checking the binary length of the base64 encoded priorHash
-		var keyLength = base64toBinary( priorHash ).length,
-			easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength });
-
+		var keyLength,
+			easyPbkdf2;
+		
+		try {
+			keyLength = base64toBinary( priorHash ).length;
+		} catch ( err ) {
+			return callback( new Error("priorHash is required (as String)") );
+		}
+		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength })
 		easyPbkdf2.hash( value, salt, function( err, valueHash ) {
 			var valid;
 			if ( !err ) {
