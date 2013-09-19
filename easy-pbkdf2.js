@@ -208,7 +208,7 @@ EasyPbkdf2.prototype = {
 			return;
 		}
 		keyLength = base64toBinary( priorHash ).length;
-		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength })
+		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength });
 		easyPbkdf2.hash( value, salt, function( err, valueHash ) {
 			var valid;
 			if ( !err ) {
