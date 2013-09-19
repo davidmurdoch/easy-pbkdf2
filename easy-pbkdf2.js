@@ -203,11 +203,11 @@ EasyPbkdf2.prototype = {
 		var keyLength,
 			easyPbkdf2;
 		
-		try {
-			keyLength = base64toBinary( priorHash ).length;
-		} catch ( err ) {
-			return callback( new Error("priorHash is required (as String)") );
+		if ( !priorHash || !_.isString( priorHash ) ) {
+			callback( new Error("priorHash is required (as String)") );
+			return;
 		}
+		keyLength = base64toBinary( priorHash ).length;
 		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength })
 		easyPbkdf2.hash( value, salt, function( err, valueHash ) {
 			var valid;
