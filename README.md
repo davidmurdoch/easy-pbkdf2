@@ -16,7 +16,7 @@ or in your `package.json`:
 
 ```json
 "dependencies": {
-    "easy-pbkdf2": "0.0.2"
+    "easy-pbkdf2": "0.x.x"
 }
 ```
 
