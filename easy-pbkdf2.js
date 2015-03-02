@@ -1,15 +1,15 @@
-var crypto = require("crypto"),
-	_ = require("lodash");
+var crypto = require("crypto");
 
 var EasyPbkdf2 = module.exports = function( options ) {
 	if( !( this instanceof EasyPbkdf2 ) ){
 		return new EasyPbkdf2( options );
 	}
 
-	if ( _.isPlainObject( options ) ) {
-		_.each( options, function( value, key ){
-			this[ key ] = value;
-		}, this);
+	if (options instanceof Object) {
+
+		var keys = Object.keys(options);
+		for(var i = 0; i<keys.length; i++)
+			this[ keys[i] ] = options[ keys[i] ];
 	}
 };
 
@@ -72,7 +72,7 @@ EasyPbkdf2.prototype = {
 	 * @returns {SlowBuffer} (optional)
 	 */
 	"random": function( bytes, callback ) {
-		if ( _.isFunction( callback ) ) {
+		if ( callback instanceof Function ) {
 			crypto.randomBytes( bytes, function( err, buffer ) {
 				if ( err ) {
 					console.log( err );
@@ -105,7 +105,7 @@ EasyPbkdf2.prototype = {
 		var defaultHashIterations = this.DEFAULT_HASH_ITERATIONS,
 			saltSize = this.SALT_SIZE;
 
-		if ( !callback && _.isFunction( explicitIterations ) ) {
+		if ( !callback && explicitIterations instanceof Function ) {
 			callback = explicitIterations;
 			explicitIterations = null;
 		}
@@ -127,7 +127,7 @@ EasyPbkdf2.prototype = {
 		var iterations = ( explicitIterations || defaultHashIterations ).toString( 16 );
 
 		// get some random bytes
-		if ( _.isFunction( callback ) ) {
+		if ( callback instanceof Function ) {
 			this.random( saltSize, function( bytes ) {
 				callback( concat( bytes ) );
 			});
@@ -162,11 +162,11 @@ EasyPbkdf2.prototype = {
 	 */
 	"hash": function( value, salt, callback ) {
 		// if salt was not supplied, generate it now.
-		if ( _.isFunction( salt ) || salt == null ) {
+		if ( salt instanceof Function || salt == null ) {
 			callback = callback || salt;
 			salt = this.generateSalt();
 		}
-		if ( !_.isFunction( callback ) ) {
+		if ( !( callback instanceof Function ) ) {
 			throw new Error("callback is required (as Function)");
 		}
 		if ( !value || typeof value !== "string" ) {
@@ -203,7 +203,7 @@ EasyPbkdf2.prototype = {
 		var keyLength,
 			easyPbkdf2;
 		
-		if ( !priorHash || !_.isString( priorHash ) ) {
+		if ( !priorHash || !( typeof priorHash === "string" ) ) {
 			callback( new Error("priorHash is required (as String)") );
 			return;
 		}
