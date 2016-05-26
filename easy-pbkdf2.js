@@ -177,7 +177,7 @@ EasyPbkdf2.prototype = {
 			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
 
-		crypto.pbkdf2( value, salt.substring( i + 1 ), iterations, keySize, function( err, derivedKey ) {
+		crypto.pbkdf2( value, salt.substring( i + 1 ), iterations, keySize, 'sha1', function( err, derivedKey ) {
 			var base64;
 			if ( !err ) {
 				base64 = binaryToBase64( derivedKey );
@@ -202,7 +202,7 @@ EasyPbkdf2.prototype = {
 		// calculate the original key length by checking the binary length of the base64 encoded priorHash
 		var keyLength,
 			easyPbkdf2;
-		
+
 		if ( !priorHash || !_.isString( priorHash ) ) {
 			callback( new Error("priorHash is required (as String)") );
 			return;
