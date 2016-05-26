@@ -1,37 +1,41 @@
 {
-    "author": [
-		{
-			"name": "David Murdoch",
-			"email": "david+easy-pbkdf2@davidmurdoch.com",
-			"url": "http://davidmurdoch.com"
-		}
-	],
-	"name": "easy-pbkdf2",
-	"version": "0.1.1",
-	"description": "Easily generate securily salted PBKDF2 hashes for password storage",
-	"keywords": [
-		"pbkdf2",
-		"password",
-		"passwords",
-		"salt",
-		"security",
-		"login",
-		"auth",
-		"authorization",
-		"sign",
-		"key",
-		"hash"
-	],
-    "main": "easy-pbkdf2.js",
-	"scripts": {
-		"test": "node test.js"
-	},
-	"homepage": "https://github.com/davidmurdoch/easy-pbkdf2",
-	"bugs": {
-		"url" : "https://github.com/davidmurdoch/easy-pbkdf2/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/davidmurdoch/easy-pbkdf2.git"
-	}
+  "author": [
+    {
+      "name": "David Murdoch",
+      "email": "david+easy-pbkdf2@davidmurdoch.com",
+      "url": "http://davidmurdoch.com"
+    }
+  ],
+  "name": "easy-pbkdf2",
+  "version": "0.2.1",
+  "description": "Easily generate securily salted PBKDF2 hashes for password storage",
+  "keywords": [
+    "pbkdf2",
+    "password",
+    "passwords",
+    "salt",
+    "security",
+    "login",
+    "auth",
+    "authorization",
+    "sign",
+    "key",
+    "hash"
+  ],
+  "main": "easy-pbkdf2.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "homepage": "https://github.com/davidmurdoch/easy-pbkdf2",
+  "bugs": {
+    "url": "https://github.com/davidmurdoch/easy-pbkdf2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidmurdoch/easy-pbkdf2.git"
+  },
+  "dependencies": {
+    "lodash.isfunction": "3.0.8",
+    "lodash.isstring": "4.0.1"
+  }
 }
