@@ -177,7 +177,7 @@ EasyPbkdf2.prototype = {
 			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
 
-		crypto.pbkdf2( value, salt.substring( i + 1 ), iterations, keySize, function( err, derivedKey ) {
+		crypto.pbkdf2( value, salt.substring( i + 1 ), iterations, keySize, "sha1", function( err, derivedKey ) {
 			var base64;
 			if ( !err ) {
 				base64 = binaryToBase64( derivedKey );
