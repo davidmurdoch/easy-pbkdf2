@@ -1,13 +1,11 @@
 {
-	"author": [
-		{
-			"name": "David Murdoch",
-			"email": "david@breadboard.ai",
-			"url": "https://breadboard.ai"
-		}
-	],
+	"author": {
+		"name": "David Murdoch",
+		"email": "david@breadboard.ai",
+		"url": "https://breadboard.ai"
+	},
 	"name": "easy-pbkdf2",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Easily generate securely salted PBKDF2 hashes",
 	"keywords": [
 		"pbkdf2",
@@ -29,9 +27,6 @@
 	"homepage": "https://github.com/breadboardllc/easy-pbkdf2",
 	"bugs": {
 		"url" : "https://github.com/breadboardllc/easy-pbkdf2/issues"
-	},
-	"dependencies": {
-		"lodash": "4.16.6"
 	},
 	"repository": {
 		"type": "git",
