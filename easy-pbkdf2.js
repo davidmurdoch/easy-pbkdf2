@@ -162,7 +162,7 @@ EasyPbkdf2.prototype = {
 			iterations = parseInt( opaqueSalt.substring( 0, iterationsEndIndex ), 16 ),
 			digestEndIndex = opaqueSalt.indexOf(".", iterationsEndIndex + 1), 
 			// Use the digest specified in the salt, if not present, fall back to sha1. Versions of easy-pbkdf2
-			// before 1.0.0 did not include the digest in the salt.    
+			// before 2.0.0 did not include the digest in the salt.    
 			digest = digestEndIndex === -1 ? "sha1" : opaqueSalt.substring( iterationsEndIndex + 1, digestEndIndex ),
 			saltStringStart = digestEndIndex === -1 ? iterationsEndIndex : digestEndIndex;
 
@@ -234,7 +234,9 @@ EasyPbkdf2.prototype = {
 			return;
 		}
 		keyLength = base64toBinary( priorHash ).length;
-		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength });
+		var parsedSalt = this.parseSalt(salt);
+		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength, "DEFAULT_HASH_ITERATIONS": parsedSalt.iterations, "DIGEST": parsedSalt.digest });
+
 		easyPbkdf2.hash( value, salt, function( err, valueHash ) {
 			var valid;
 			if ( !err ) {
