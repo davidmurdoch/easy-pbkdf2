@@ -263,8 +263,6 @@ EasyPbkdf2.prototype = {
 	 * @param {Function} callback fn( err, {Number} The number of hash iterations that approximate the given duration on similar hardware and load.
 	 */
 	"findOptimalHashIterations": function(duration, deviation, callback){
-		console.info("Calculating optimal hash iterations.");
-
 		if ( duration <= 0 ) {
 			throw new Error("Durations must be greater than 0");
 		}
@@ -280,8 +278,6 @@ EasyPbkdf2.prototype = {
 		
 		var bench = function ( iterations ) {
 			this.DEFAULT_HASH_ITERATIONS = iterations;
-			console.info("Testing " + iterations + " iterations.");
-
 			var start = process.hrtime();
 			this.hash(testPassword, function( err, base64, salt ){
 				if ( err ) {
