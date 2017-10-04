@@ -212,7 +212,7 @@ EasyPbkdf2.prototype = {
 		easyPbkdf2.hash( value, salt, function( err, valueHash ) {
 			var valid;
 			if ( !err ) {
-				valid = constantTimeStringCompare( priorHash, valueHash );
+				valid = crypto.timingSafeEqual( Buffer.from(priorHash), Buffer.from(valueHash) );
 			}
 			callback( err, valid );
 		});
@@ -222,35 +222,6 @@ EasyPbkdf2.prototype = {
 
 EasyPbkdf2.EasyPbkdf2 = EasyPbkdf2;
 
-/**
- * This method performs a constant-time (relevant to `constStr` only!) string equality check that can be used to prevent
- * timing attacks when comparing sensitive data.
- *
- * This method does not perform in constant-time when the variableStr is an empty string.
- *
- * @param {String} constStr The comparison string that this the constant-time function should be relative to.
- * @param {String} variableStr The string to check for equality
- * @returns {Boolean} True if the strings are equal. False if not.
- */
-function constantTimeStringCompare( constStr, variableStr ) {
-	with ( Object.create({}) ) { // disables compiler optimizations
-
-		var aLength = constStr.length,
-			bLength = variableStr.length,
-			match = aLength === bLength ? 1 : 0,
-			i = aLength;
-
-		while ( i-- ) {
-			var aChar = constStr.charCodeAt( i % aLength ),
-				bChar = variableStr.charCodeAt( i % bLength ),
-				equ = aChar === bChar,
-				asInt = equ ? 1 : 0;
-			match = match & equ;
-		}
-
-		return match === 1;
-	}
-}
 function binaryToBase64( binary ){
 	return new Buffer( binary, "binary" ).toString("base64");
 }
