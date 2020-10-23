@@ -1,12 +1,11 @@
 {
-    "author": [
-		{
-			"name": "David Murdoch",
-			"email": "david+easy-pbkdf2@davidmurdoch.com",
-			"url": "http://davidmurdoch.com"
-		}
-	],
+	"author": {
+		"name": "David Murdoch",
+		"email": "david+easy-pbkdf2@davidmurdoch.com",
+		"url": "https://davidmurdoch.com"
+	},
 	"name": "easy-pbkdf2",
+	"license": "MIT",
 	"version": "0.1.2",
 	"description": "Easily generate securily salted PBKDF2 hashes for password storage",
 	"keywords": [
@@ -22,19 +21,25 @@
 		"key",
 		"hash"
 	],
-    "main": "easy-pbkdf2.js",
+	"main": "easy-pbkdf2.js",
 	"scripts": {
 		"test": "node test.js"
 	},
 	"homepage": "https://github.com/davidmurdoch/easy-pbkdf2",
 	"bugs": {
-		"url" : "https://github.com/davidmurdoch/easy-pbkdf2/issues"
+		"url": "https://github.com/davidmurdoch/easy-pbkdf2/issues"
 	},
-    "dependencies": {
-        "lodash": "1.3.1"
-    },
+	"dependencies": {
+		"lodash.foreach": "4.5.0",
+		"lodash.isfunction": "3.0.9",
+		"lodash.isplainobject": "4.0.6",
+		"lodash.isstring": "4.0.1"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/davidmurdoch/easy-pbkdf2.git"
+	},
+	"engines": {
+		"node": ">=4.5.0"
 	}
 }
