@@ -9,7 +9,7 @@ var EasyPbkdf2 = module.exports = function( options ) {
 	if ( _.isPlainObject( options ) ) {
 		_.each( options, function( value, key ){
 			this[ key ] = value;
-		}, this);
+		}.bind(this));
 	}
 };
 
