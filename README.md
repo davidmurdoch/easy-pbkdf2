@@ -88,13 +88,16 @@ of which all will return an `EasyPbkdf2` instance with `options` set.
     // default SALT_SIZE is 32
     "SALT_SIZE": 16,
     // default KEY_LENGTH is 256
-    "KEY_LENGTH": 128
+    "KEY_LENGTH": 128,
+    // default MAX_PASSWORD_LENGTH is 4096 characters
+    "MAX_PASSWORD_LENGTH": 2048
 };
 
 var easyPbkdf2 = new EasyPbkdf2(options);
 console.log(easyPbkdf2.DEFAULT_HASH_ITERATIONS) // 256
 console.log(easyPbkdf2.SALT_SIZE); // 16
 console.log(easyPbkdf2.KEY_LENGTH); // 128
+console.log(easyPbkdf2.MAX_PASSWORD_LENGTH); // 2048
 
 // options are applied to each instance individually.
 console.log( (new EasyPbkdf2()).DEFAULT_HASH_ITERATIONS ); // 512
