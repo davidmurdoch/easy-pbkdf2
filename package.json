@@ -1,11 +1,9 @@
 {
-    "author": [
-		{
-			"name": "David Murdoch",
-			"email": "david+easy-pbkdf2@davidmurdoch.com",
-			"url": "http://davidmurdoch.com"
-		}
-	],
+	"author": {
+		"name": "David Murdoch",
+		"email": "david+easy-pbkdf2@davidmurdoch.com",
+		"url": "https://davidmurdoch.com"
+	},
 	"name": "easy-pbkdf2",
 	"version": "0.1.2",
 	"description": "Easily generate securily salted PBKDF2 hashes for password storage",
