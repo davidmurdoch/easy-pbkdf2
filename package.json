@@ -5,6 +5,7 @@
 		"url": "https://davidmurdoch.com"
 	},
 	"name": "easy-pbkdf2",
+	"license": "MIT",
 	"version": "0.1.2",
 	"description": "Easily generate securily salted PBKDF2 hashes for password storage",
 	"keywords": [
