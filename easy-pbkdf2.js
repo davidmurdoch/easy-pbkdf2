@@ -42,7 +42,7 @@ EasyPbkdf2.prototype = {
 	 */
 	"weakHash": function( value ) {
 		var hasher = crypto.createHash("sha1"),
-			bytes = value != null ? new Buffer( JSON.stringify( value ), "utf8" ) : new Buffer(0);
+			bytes = value != null ? Buffer.from( JSON.stringify( value ), "utf8" ) : Buffer.allocUnsafe(0);
 
 		hasher.update( bytes, "binary" );
 
@@ -252,8 +252,8 @@ function constantTimeStringCompare( constStr, variableStr ) {
 	}
 }
 function binaryToBase64( binary ){
-	return new Buffer( binary, "binary" ).toString("base64");
+	return Buffer.from( binary, "binary" ).toString("base64");
 }
 function base64toBinary( base64 ){
-	return new Buffer( base64, "base64" ).toString("binary");
+	return Buffer.from( base64, "base64" ).toString("binary");
 }
