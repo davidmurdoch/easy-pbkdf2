@@ -33,6 +33,11 @@ EasyPbkdf2.prototype = {
 	"KEY_LENGTH": 256,
 
 	/**
+	 * @default The maximum length of the password to accept for hashing
+	 */
+	"MAX_PASSWORD_LENGTH": 4096,
+
+	/**
 	 * Cranks out a collision resistant hash, relatively quickly.
 	 *
 	 * Not suitable for passwords, or sensitive information.
@@ -176,6 +181,10 @@ EasyPbkdf2.prototype = {
 			callback(new Error("value is required (as String)"));
 			return;
 		}
+		if ( value.length > this.MAX_PASSWORD_LENGTH ) {
+			callback(new Error("Password exceeds maximum length of " + this.MAX_PASSWORD_LENGTH));
+			return;
+		}
 		var keySize = this.KEY_LENGTH,
 			i = (salt).indexOf("."),
 			iterations = parseInt( salt.substring( 0, i ), 16 );
@@ -211,7 +220,7 @@ EasyPbkdf2.prototype = {
 			return;
 		}
 		keyLength = base64toBinary( priorHash ).length;
-		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength });
+		easyPbkdf2 = new EasyPbkdf2({ "KEY_LENGTH": keyLength, "MAX_PASSWORD_LENGTH": this.MAX_PASSWORD_LENGTH });
 		easyPbkdf2.hash( value, salt, function( err, valueHash ) {
 			var valid;
 			if ( !err ) {
